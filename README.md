@@ -1,44 +1,136 @@
-# ESP32 Arduino Lib Builder [![ESP32 Arduino Libs CI](https://github.com/espressif/esp32-arduino-lib-builder/actions/workflows/push.yml/badge.svg)](https://github.com/espressif/esp32-arduino-lib-builder/actions/workflows/push.yml)
+# ESP32 Arduino Lib Builder
 
-This repository contains the scripts that produce the libraries included with esp32-arduino.
+This repository contains the scripts that produce the SDK included with esp32-arduino. It not only supports local compilation but also provides an automated compilation and SDK download process through GitHub Actions.
 
-Tested on Ubuntu (32 and 64 bit), Raspberry Pi and MacOS.
+If you want to directly use the precompiled SDK based on the branches below, please check the [arduino-esp32-SDK](https://github.com/esp-arduino-libs/arduino-esp32-sdk) repository.
 
-### Build on Ubuntu and Raspberry Pi
-```bash
-sudo apt-get install git wget curl libssl-dev libncurses-dev flex bison gperf python python-pip python-setuptools python-serial python-click python-cryptography python-future python-pyparsing python-pyelftools cmake ninja-build ccache jq
-sudo pip install --upgrade pip
-git clone https://github.com/espressif/esp32-arduino-lib-builder
-cd esp32-arduino-lib-builder
-./build.sh
-```
+## Contents
 
-### Using the User Interface
+- [ESP32 Arduino Lib Builder](#esp32-arduino-lib-builder)
+  - [Contents](#contents)
+  - [Feature](#feature)
+  - [Branches](#branches)
+    - [Release Versions](#release-versions)
+    - [High Performance Versions](#high-performance-versions)
+  - [How to Use](#how-to-use)
+    - [Compilation in Github](#compilation-in-github)
+    - [Compilation in Local](#compilation-in-local)
 
-You can more easily build the libraries using the user interface found in the `tools/config_editor/` folder.
-It is a Python script that allows you to select and edit the options for the libraries you want to build.
-The script has mouse support and can also be pre-configured using the same command line arguments as the `build.sh` script.
-For more information and troubleshooting, please refer to the [UI README](tools/config_editor/README.md).
+## Feature
 
-To use it, follow these steps:
+In comparison to the original [esp32-arduino-lib-builder](https://github.com/espressif/esp32-arduino-lib-builder), this repository is used for recompiling specific versions of the SDK in `arduino-esp32` and has the following branches:
 
-1. Make sure you have the following prerequisites:
-  - Python 3.9 or later
-  - All the dependencies listed in the previous section
+* `release/*` is used to recompile the original SDK for a specified version.
+* `high_perf/*` is used to recompile high performance versions based on a specified SDK version. It changes some configurations (as below) and can achieve higher performance in some cases, especially for avoiding [screen drifting](https://docs.espressif.com/projects/esp-faq/en/latest/software-framework/peripherals/lcd.html#why-do-i-get-drift-overall-drift-of-the-display-when-esp32-s3-is-driving-an-rgb-lcd-screen) when using RGB LCDs. (Only available for v3.x and above versions)
 
-2. Install the required UI packages using `pip install -r tools/config_editor/requirements.txt`.
+  * For ESP32-S3 SoCs:
 
-3. Execute the script `tools/config_editor/app.py` from any folder. It will automatically detect the path to the root of the repository.
+    * All:
 
-4. Configure the compilation and ESP-IDF options as desired.
+        * It changes the optimization level from `-Os` to `-O2` by enabling `CONFIG_COMPILER_OPTIMIZATION_PERF=y`.
+        * It increases the size of the data cache line width from `32` to `64` by enabling `CONFIG_ESP32S3_DATA_CACHE_LINE_64B=y`.
 
-5. Click on the "Compile Static Libraries" button to start the compilation process.
+    * For ESP32-S3R8 (Octal PSRAM):
 
-6. The script will show the compilation output in a new screen. Note that the compilation process can take many hours, depending on the number of libraries selected and the options chosen.
+        * It enables the function **XIP on PSRAM** by enabling `CONFIG_SPIRAM_FETCH_INSTRUCTIONS=y` and `CONFIG_SPIRAM_RODATA=y` (< v3.1.1).
+        * It enables the function **XIP on PSRAM** by enabling `CONFIG_SPIRAM_XIP_FROM_PSRAM=y` (>= v3.1.1).
 
-7. If the compilation is successful and the option to copy the libraries to the Arduino Core folder is enabled, it will already be available for use in the Arduino IDE. Otherwise, you can find the compiled libraries in the `esp32-arduino-libs` folder alongside this repository.
-  - Note that the copy operation doesn't currently support the core downloaded from the Arduino IDE Boards Manager, only the manual installation from the [`arduino-esp32`](https://github.com/espressif/arduino-esp32) repository.
+  * For ESP32-P4 SoCs:
 
-### Documentation
+    * All:
 
-For more information about how to use the Library builder, please refer to this [Documentation page](https://docs.espressif.com/projects/arduino-esp32/en/latest/lib_builder.html?highlight=lib%20builder)
+      * It increases the size of the L2 cache line width from `64` to `128` by enabling `CONFIG_CACHE_L2_CACHE_LINE_128B=y`.
+      * It increases the size of the L2 cache line size from `128KB` to `256KB` by enabling `CONFIG_CACHE_L2_CACHE_256KB=y`.
+
+> [!WARNING]
+> For the ESP32-P4 in version v3.1.1, enabling `CONFIG_COMPILER_OPTIMIZATION_PERF=y` and `CONFIG_SPIRAM_XIP_FROM_PSRAM=y` will cause the chip to fail to boot properly.
+
+## Branches
+
+### Release Versions
+
+* [release/v2.0.13](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v2.0.13)
+* [release/v3.0.0-alpha3](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v3.0.0-alpha3)
+* [release/v3.0.0](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v3.0.0)
+* [release/v3.0.2](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v3.0.2)
+* [release/v3.0.7](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v3.0.7)
+* [release/v3.1.1](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v3.1.1)
+
+### High Performance Versions
+
+As only v3.x and above versions support the required high-performance configurations, the branches here are only used for compiling the high_perf version of v3.x.
+
+* [high_perf/v3.0.0-alpha3](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/high_perf/v3.0.0-alpha3)
+* [high_perf/v3.0.0](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/high_perf/v3.0.0)
+* [high_perf/v3.0.2](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/high_perf/v3.0.2)
+* [high_perf/v3.0.7](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/high_perf/v3.0.7)
+* [high_perf/v3.1.1](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/high_perf/v3.1.1)
+
+> [!TIP]
+> [Precompiled SDKs](https://github.com/esp-arduino-libs/arduino-esp32-sdk?tab=readme-ov-file#for-sdks-suffixed-with--h)
+
+## How to Use
+
+### Compilation in Github
+
+1. Click `Fork` to fork this repository into your account.
+
+  <img src="docs/_static/auto_step_0-1.png">
+
+2. Uncheck the `Copy the master branch only` option and click `Create fork`.
+
+  <img src="docs/_static/auto_step_0-2.png">
+
+3. If you want to change the default configurations, follow the below steps:
+
+  * Choose a branch based on the version you want to recompile. Here take `release/v3.0.0-alpha3` as an example.
+
+    <img src="docs/_static/auto_step_1.png">
+
+  * To change the default configurations, mofify the files in the `configs` folder based on your application requirements.
+
+    <img src="docs/_static/auto_step_2.png">
+
+  * Commit the changes.
+
+    <img src="docs/_static/auto_step_3.png">
+
+  * Select `Create a new branch for this commit and start a pull request`, change the branch name if needed and click `Propose changes`.
+
+    <img src="docs/_static/auto_step_4.png">
+
+  * Do not create a pull request, just click `Action`. Here you can see the compilation process. (Default to compile all targets)
+
+    <img src="docs/_static/auto_step_5.png">
+
+    <img src="docs/_static/auto_step_6.png">
+
+4. If you don't need to change the default configurations or just want to compile a specific target, follow the below steps:
+
+  * Click `Actions`, here are two workflows, `Manual Build SDK For (v2) the Specific Target` is used to compile the v2.x version, and `Manual Build SDK For (v3) the Specific Target` is used to compile the v3.x version.
+
+    <img src="docs/_static/manual_step_0_0.png">
+
+  * If you want to compile the **v2.x version**, click `Manual Build SDK For (v2) the Specific Target`, then click `Run workflow`. Here you can select the branch (only available for the `xx/v2.x.x` branches) and the target.
+
+    <img src="docs/_static/manual_step_0_1.png">
+
+  * If you want to compile the **v3.x version**, click `Manual Build SDK For (v3) the Specific Target`, then click `Run workflow`. Here you can select the branch (only available for the `xx/v3.x.x` branches), the target and log level. So there are no `debug/v3.x.x` branches, you can specify the log level when compiling.
+
+    <img src="docs/_static/manual_step_0_2.png">
+
+  * Then the compilation process will start. After it is complete, download the zip file from the `Artifacts`.
+
+    <img src="docs/_static/manual_step_3.png">
+
+  <img src="docs/_static/auto_step_7.png">
+
+5. To replace the original SDK, please refer to the [steps](https://github.com/esp-arduino-libs/arduino-esp32-sdk#how-to-use) for more details.
+
+### Compilation in Local
+
+1. Choose a branch version based on your application requirements and download it to the local.
+2. Modify the files in the `configs` folder based on your application requirements.
+3. Consult its README for compilation instructions. Note that the process involves downloading `ESP-IDF`, `arduino-esp32`, and several large components, which may take a considerable amount of time. Please be patient.
+4. After the compilation is complete, the SDK will be located in the `out` folder.
+5. To replace the original SDK, please refer to the [steps](https://github.com/esp-arduino-libs/arduino-esp32-sdk#how-to-use) for more details.

@@ -1,0 +1,40 @@
+name: Manual Build SDK (v2) For the Specific Target
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        type: choice
+        description: Choose Target
+        default: 'all'
+        options:
+        - 'all'
+        - 'esp32'
+        - 'esp32s2'
+        - 'esp32s3'
+        - 'esp32c3'
+
+jobs:
+  run:
+    name: Build ${{ github.ref_name }} SDK (v2) For ${{ github.event.inputs.target }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: bash ./tools/prepare-ci.sh
+
+      - name: Build
+        shell: bash
+        run: |
+          export TARGET_TYPE=${{ github.event.inputs.target }}
+          echo "Building for $TARGET_TYPE"
+          bash ./build.sh -e -t $TARGET_TYPE
+
+      - name: Upload archive
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifacts
+          path: dist

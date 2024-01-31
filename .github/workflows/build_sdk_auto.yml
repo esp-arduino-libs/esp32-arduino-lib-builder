@@ -1,0 +1,31 @@
+name: Auto Build SDK For All Targets
+
+on:
+  push:
+    branches:
+      - '*'
+      - '!master'
+
+jobs:
+  run:
+    name: Build ${{ github.ref_name }} SDK For all
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: bash ./tools/prepare-ci.sh
+
+      - name: Build
+        shell: bash
+        run: |
+          echo "Building for all"
+          bash ./build.sh -e -t all
+
+      - name: Upload archive
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifacts
+          path: dist

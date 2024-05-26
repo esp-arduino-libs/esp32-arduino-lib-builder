@@ -2,7 +2,7 @@
 
 source ./tools/config.sh
 
-IDF_COMMIT=`github_last_commit "$IDF_REPO" "$IDF_BRANCH"`
+# IDF_COMMIT=`github_last_commit "$IDF_REPO" "$IDF_BRANCH"`
 
 if [ -z $IDF_COMMIT ]; then
 	echo "Failed to get IDF commit for branch $IDF_BRANCH"

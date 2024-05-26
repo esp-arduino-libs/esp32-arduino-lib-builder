@@ -1,5 +1,9 @@
 #!/bin/bash
 
+export IDF_COMMIT="2f7dcd862a"
+export IDF_BRANCH="release/v5.4"
+export AR_REPO_COMMIT="210edfeaa6cfa64d1a7bd51abd5c6e1ac30692a8"
+export TINYUSB_REPO_COMMIT="8c1802e41"
 
 if [ -z $IDF_PATH ]; then
     export IDF_PATH="$PWD/esp-idf"
@@ -25,7 +29,8 @@ if [ -z $IDF_TARGET ]; then
 fi
 
 # Owner of the target ESP32 Arduino repository
-AR_USER="${GITHUB_REPOSITORY_OWNER:-espressif}"
+# Personal change: Avoid error "fatal: could not read Username for 'https://github.com': No such device or address"
+AR_USER="espressif"
 
 # The full name of the repository
 AR_REPO="$AR_USER/arduino-esp32"
@@ -35,10 +40,11 @@ AR_LIBS_REPO="$AR_USER/esp32-arduino-lib-builder"
 AR_REPO_URL="https://github.com/$AR_REPO.git"
 IDF_REPO_URL="https://github.com/$IDF_REPO.git"
 AR_LIBS_REPO_URL="https://github.com/$AR_LIBS_REPO.git"
-if [ -n $GITHUB_TOKEN ]; then
-    AR_REPO_URL="https://$GITHUB_TOKEN@github.com/$AR_REPO.git"
-    AR_LIBS_REPO_URL="https://$GITHUB_TOKEN@github.com/$AR_LIBS_REPO.git"
-fi
+# Personal change: Avoid error "fatal: could not read Password for 'https://github.com': No such device or address"
+# if [ -n $GITHUB_TOKEN ]; then
+#     AR_REPO_URL="https://$GITHUB_TOKEN@github.com/$AR_REPO.git"
+#     AR_LIBS_REPO_URL="https://$GITHUB_TOKEN@github.com/$AR_LIBS_REPO.git"
+# fi
 
 AR_ROOT="$PWD"
 AR_COMPS="$AR_ROOT/components"
@@ -52,10 +58,10 @@ AR_SDK="$AR_TOOLS/esp32-arduino-libs/$IDF_TARGET"
 PIOARDUINO_SDK="FRAMEWORK_SDK_DIR, \"$IDF_TARGET\""
 TOOLS_JSON_OUT="$AR_TOOLS/esp32-arduino-libs"
 
-if [ -d "$IDF_PATH" ]; then
-    export IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD)
-    export IDF_BRANCH=$(git -C "$IDF_PATH" symbolic-ref --short HEAD || git -C "$IDF_PATH" tag --points-at HEAD)
-fi
+# if [ -d "$IDF_PATH" ]; then
+#     export IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD)
+#     export IDF_BRANCH=$(git -C "$IDF_PATH" symbolic-ref --short HEAD || git -C "$IDF_PATH" tag --points-at HEAD)
+# fi
 
 function get_os(){
     OSBITS=`uname -m`

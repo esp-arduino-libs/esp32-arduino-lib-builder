@@ -1,65 +1,188 @@
 dependencies:
   # Required IDF version
   idf: ">=5.1"
-  espressif/esp32-camera:
-    version: "master"
-    git: https://github.com/espressif/esp32-camera.git
+
+  chmorgan/esp-libhelix-mp3:
+    version: "1.0.3"
     require: public
+
+  espressif/cbor:
     rules:
-      - if: "target in [esp32, esp32s2, esp32s3]"
-  espressif/esp-tflite-micro:
-    version: ">=1.2.0"
-    require: public
-    rules:
-      - if: "target not in [esp32c2]"
+    - if: idf_version >=5.0
+    version: "0.6.0~1"
+
   espressif/esp-dl:
     version: "af7808ba09448ce82c704455975d4cf1e4305fd7"
     git: https://github.com/espressif/esp-dl.git
     require: public
     rules:
       - if: "target in [esp32s3, esp32s2, esp32]"
+
+  espressif/esp-dsp:
+    version: "1.5.2"
+    rules:
+      - if: "target not in [esp32c2, esp32s3]"
+
+  espressif/esp-dsp:
+    version: "1.4.12"
+    rules:
+      - if: "target == esp32s3"
+
+  espressif/esp-modbus:
+    version: "1.0.16"
+
+  espressif/esp-nn:
+    version: "1.1.0"
+
+  espressif/esp-serial-flasher:
+    version: "0.0.11"
+    rules:
+      - if: "target not in [esp32p4]"
+
   espressif/esp-sr:
-    version: ">=1.4.2"
+    version: "1.9.2"
     rules:
       - if: "target in [esp32s3]"
 
-  # esp-sr: "^1.3.1"
-  # esp32-camera: "^2.0.4"
-  # esp-dl:
-  #   git: https://github.com/espressif/esp-dl.git
-  # espressif/esp_rainmaker:
-  #   path: components/esp_rainmaker
-  #   git: https://github.com/espressif/esp-rainmaker.git
+  espressif/esp-tflite-micro:
+    version: "1.3.1"
+    require: public
+    rules:
+      - if: "target not in [esp32c2]"
 
-  # # Defining a dependency from the registry:
-  # # https://components.espressif.com/component/example/cmp
-  # example/cmp: "^3.3.3" # Automatically update minor releases
-  #
-  # # Other ways to define dependencies
-  #
-  # # For components maintained by Espressif only name can be used.
-  # # Same as `espressif/cmp`
-  # component: "~1.0.0" # Automatically update bugfix releases
-  #
-  # # Or in a longer form with extra parameters
-  # component2:
-  #   version: ">=2.0.0"
-  #
-  #   # For transient dependencies `public` flag can be set.
-  #   # `public` flag doesn't have an effect for the `main` component.
-  #   # All dependencies of `main` are public by default.
-  #   public: true
-  #
-  #   # For components hosted on non-default registry:
-  #   service_url: "https://componentregistry.company.com"
-  #
-  # # For components in git repository:
-  # test_component:
-  #   path: test_component
-  #   git: ssh://git@gitlab.com/user/components.git
-  #
-  # # For test projects during component development
-  # # components can be used from a local directory
-  # # with relative or absolute path
-  # some_local_component:
-  #   path: ../../projects/component
+  espressif/esp-zboss-lib:
+    version: "1.5.1"
+    rules:
+      - if: "target != esp32c2"
+
+  espressif/esp-zigbee-lib:
+    version: "1.5.1"
+    rules:
+      - if: "target != esp32c2"
+
+  espressif/esp32-camera:
+    version: "0054ab76046d2879ca9682edb2419b0613b06acd"
+    git: https://github.com/espressif/esp32-camera.git
+    require: public
+    rules:
+      - if: "target in [esp32, esp32s2, esp32s3]"
+
+  espressif/esp_diag_data_store:
+    version: "1.0.2"
+
+  espressif/esp_diagnostics:
+    version: "1.2.1"
+
+  espressif/esp_insights:
+    version: "1.2.2"
+    rules:
+      - if: "target != esp32c2"
+
+  espressif/esp_modem:
+    version: "1.1.0"
+
+  espressif/esp_rainmaker:
+    version: "1.5.0"
+    rules:
+      - if: "target != esp32c2"
+
+  espressif/esp_schedule:
+    version: "1.2.0"
+
+  espressif/esp_secure_cert_mgr:
+    rules:
+    - if: idf_version >=4.3
+    version: "2.5.0"
+
+  espressif/jsmn:
+    version: "1.1.0"
+
+  espressif/json_generator:
+    version: "1.1.2"
+
+  espressif/json_parser:
+    version: "1.0.3"
+
+  libsodium: "1.0.20~1"
+
+  mdns: "1.4.0"
+
+  espressif/network_provisioning: "1.0.2"
+
+  espressif/qrcode:
+    version: "0.1.0~2"
+    rules:
+      - if: "target != esp32c2"
+
+  espressif/rmaker_common:
+    version: "1.4.6"
+    rules:
+      - if: "target != esp32c2"
+
+  joltwallet/littlefs: "1.14.8"
+
+# dependencies:
+#   # Required IDF version
+#   idf: ">=5.1"
+#   espressif/esp32-camera:
+#     version: "master"
+#     git: https://github.com/espressif/esp32-camera.git
+#     require: public
+#     rules:
+#       - if: "target in [esp32, esp32s2, esp32s3]"
+#   espressif/esp-tflite-micro:
+#     version: ">=1.2.0"
+#     require: public
+#     rules:
+#       - if: "target not in [esp32c2]"
+#   espressif/esp-dl:
+#     version: "master"
+#     git: https://github.com/espressif/esp-dl.git
+#     require: public
+#     rules:
+#       - if: "target in [esp32s3, esp32s2, esp32]"
+#   espressif/esp-sr:
+#     version: ">=1.4.2"
+#     rules:
+#       - if: "target in [esp32s3]"
+
+#   # esp-sr: "^1.3.1"
+#   # esp32-camera: "^2.0.4"
+#   # esp-dl:
+#   #   git: https://github.com/espressif/esp-dl.git
+#   # espressif/esp_rainmaker:
+#   #   path: components/esp_rainmaker
+#   #   git: https://github.com/espressif/esp-rainmaker.git
+
+#   # # Defining a dependency from the registry:
+#   # # https://components.espressif.com/component/example/cmp
+#   # example/cmp: "^3.3.3" # Automatically update minor releases
+#   #
+#   # # Other ways to define dependencies
+#   #
+#   # # For components maintained by Espressif only name can be used.
+#   # # Same as `espressif/cmp`
+#   # component: "~1.0.0" # Automatically update bugfix releases
+#   #
+#   # # Or in a longer form with extra parameters
+#   # component2:
+#   #   version: ">=2.0.0"
+#   #
+#   #   # For transient dependencies `public` flag can be set.
+#   #   # `public` flag doesn't have an effect for the `main` component.
+#   #   # All dependencies of `main` are public by default.
+#   #   public: true
+#   #
+#   #   # For components hosted on non-default registry:
+#   #   service_url: "https://componentregistry.company.com"
+#   #
+#   # # For components in git repository:
+#   # test_component:
+#   #   path: test_component
+#   #   git: ssh://git@gitlab.com/user/components.git
+#   #
+#   # # For test projects during component development
+#   # # components can be used from a local directory
+#   # # with relative or absolute path
+#   # some_local_component:
+#   #   path: ../../projects/component

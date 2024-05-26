@@ -1,5 +1,9 @@
 #!/bin/bash
 
+export IDF_COMMIT="632e0c2a9f"
+export IDF_BRANCH="release/v5.1"
+export AR_REPO_COMMIT="3bfa3e0a5"
+export TINYUSB_REPO_COMMIT="8b1e40c3e"
 
 if [ -z $IDF_PATH ]; then
     export IDF_PATH="$PWD/esp-idf"
@@ -35,10 +39,10 @@ AR_LIBS_REPO="$AR_USER/esp32-arduino-lib-builder"
 AR_REPO_URL="https://github.com/$AR_REPO.git"
 IDF_REPO_URL="https://github.com/$IDF_REPO.git"
 AR_LIBS_REPO_URL="https://github.com/$AR_LIBS_REPO.git"
-if [ -n $GITHUB_TOKEN ]; then
-    AR_REPO_URL="https://$GITHUB_TOKEN@github.com/$AR_REPO.git"
-    AR_LIBS_REPO_URL="https://$GITHUB_TOKEN@github.com/$AR_LIBS_REPO.git"
-fi
+# if [ -n $GITHUB_TOKEN ]; then
+#     AR_REPO_URL="https://$GITHUB_TOKEN@github.com/$AR_REPO.git"
+#     AR_LIBS_REPO_URL="https://$GITHUB_TOKEN@github.com/$AR_LIBS_REPO.git"
+# fi
 
 AR_ROOT="$PWD"
 AR_COMPS="$AR_ROOT/components"
@@ -52,10 +56,10 @@ AR_SDK="$AR_TOOLS/esp32-arduino-libs/$IDF_TARGET"
 PIO_SDK="FRAMEWORK_SDK_DIR, \"$IDF_TARGET\""
 TOOLS_JSON_OUT="$AR_TOOLS/esp32-arduino-libs"
 
-if [ -d "$IDF_PATH" ]; then
-    export IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD)
-    export IDF_BRANCH=$(git -C "$IDF_PATH" symbolic-ref --short HEAD || git -C "$IDF_PATH" tag --points-at HEAD)
-fi
+# if [ -d "$IDF_PATH" ]; then
+#     export IDF_COMMIT=$(git -C "$IDF_PATH" rev-parse --short HEAD)
+#     export IDF_BRANCH=$(git -C "$IDF_PATH" symbolic-ref --short HEAD || git -C "$IDF_PATH" tag --points-at HEAD)
+# fi
 
 function get_os(){
     OSBITS=`uname -m`

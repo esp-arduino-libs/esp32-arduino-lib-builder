@@ -6,7 +6,7 @@ on:
       target:
         type: choice
         description: Choose Target
-        default: 'all'
+        default: 'esp32s3'
         options:
         - 'all'
         - 'esp32'

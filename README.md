@@ -37,18 +37,21 @@ In comparison to the original [esp32-arduino-lib-builder](https://github.com/esp
 
 * [release/v2.0.13](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v2.0.13)
 * [release/v3.0.0-alpha3](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v3.0.0-alpha3)
+* [release/v3.0.0](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v3.0.0)
 
 ### Debug Versions
 
 Due to the support of specifying the LOG level when compiling v3.x and above versions in esp32-arduino-lib-builder, the branches here are only used to compile debug versions of v2.x.
 
-* [debug/v2.0.13](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v2.0.13)
+* [debug/v2.0.13](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/debug/v2.0.13)
+* [debug/v3.0.0](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/debug/v3.0.0)
 
 ### High Performance Versions
 
 As only v3.x and above versions support the required high-performance configurations, the branches here are only used for compiling the high_perf version of v3.x.
 
 * [high_perf/v3.0.0-alpha3](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/high_perf/v3.0.0-alpha3)
+* [high_perf/v3.0.0](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/high_perf/v3.0.0)
 
 ## How to Use
 

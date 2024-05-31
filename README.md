@@ -26,10 +26,11 @@ In comparison to the original [esp32-arduino-lib-builder](https://github.com/esp
 * `high_perf/*` is used to recompile high performance versions based on a specified SDK version. It changes some configurations (as below) and can achieve higher performance in some cases, especially for avoiding [screen drifting](https://docs.espressif.com/projects/esp-faq/en/latest/software-framework/peripherals/lcd.html#why-do-i-get-drift-overall-drift-of-the-display-when-esp32-s3-is-driving-an-rgb-lcd-screen) when using RGB LCDs. (Only available for v3.x and above versions)
 
   * For ESP32-S3 SoCs:
-    * It changes the optimization level from `-Os` to `-O2` by enabling `CONFIG_COMPILER_OPTIMIZATION_PERF=y`.
-    * It increases the size of the data cache line from `32` to `64` by enabling `CONFIG_ESP32S3_DATA_CACHE_LINE_64B=y`.
-  * For ESP32-S3R8 SoC:
-    * It enables the function **XIP on PSRAM** by enabling `CONFIG_SPIRAM_FETCH_INSTRUCTIONS=y` and `CONFIG_SPIRAM_RODATA=y`.
+    * All:
+        * It changes the optimization level from `-Os` to `-O2` by enabling `CONFIG_COMPILER_OPTIMIZATION_PERF=y`.
+        * It increases the size of the data cache line from `32` to `64` by enabling `CONFIG_ESP32S3_DATA_CACHE_LINE_64B=y`.
+    * For ESP32-S3R8 (Octal PSRAM):
+        * It enables the function **XIP on PSRAM** by enabling `CONFIG_SPIRAM_FETCH_INSTRUCTIONS=y` and `CONFIG_SPIRAM_RODATA=y`.
 
 ## Branches
 
@@ -109,12 +110,12 @@ As only v3.x and above versions support the required high-performance configurat
 
   <img src="docs/_static/auto_step_7.png">
 
-6. To replace the original SDK, please refer to the [steps](https://github.com/esp-arduino-libs/arduino-esp32-sdk#how-to-use) for more details.
+5. To replace the original SDK, please refer to the [steps](https://github.com/esp-arduino-libs/arduino-esp32-sdk#how-to-use) for more details.
 
 ### Compilation in Local
 
 1. Choose a branch version based on your application requirements and download it to the local.
 2. Modify the files in the `configs` folder based on your application requirements.
 3. Consult its README for compilation instructions. Note that the process involves downloading `ESP-IDF`, `arduino-esp32`, and several large components, which may take a considerable amount of time. Please be patient.
-6. After the compilation is complete, the SDK will be located in the `out` folder.
-7. To replace the original SDK, please refer to the [steps](https://github.com/esp-arduino-libs/arduino-esp32-sdk#how-to-use) for more details.
+4. After the compilation is complete, the SDK will be located in the `out` folder.
+5. To replace the original SDK, please refer to the [steps](https://github.com/esp-arduino-libs/arduino-esp32-sdk#how-to-use) for more details.

@@ -11,7 +11,6 @@ If you want to directly use the precompiled SDK based on the branches below, ple
   - [Feature](#feature)
   - [Branches](#branches)
     - [Release Versions](#release-versions)
-    - [Debug Versions](#debug-versions)
     - [High Performance Versions](#high-performance-versions)
   - [How to Use](#how-to-use)
     - [Compilation in Github](#compilation-in-github)
@@ -22,7 +21,6 @@ If you want to directly use the precompiled SDK based on the branches below, ple
 In comparison to the original [esp32-arduino-lib-builder](https://github.com/espressif/esp32-arduino-lib-builder), this repository is used for recompiling specific versions of the SDK in `arduino-esp32` and has the following branches:
 
 * `release/*` is used to recompile the original SDK for a specified version.
-* `debug/*` is used to recompile debug versions based on a specified SDK version.
 * `high_perf/*` is used to recompile high performance versions based on a specified SDK version. It changes some configurations (as below) and can achieve higher performance in some cases, especially for avoiding [screen drifting](https://docs.espressif.com/projects/esp-faq/en/latest/software-framework/peripherals/lcd.html#why-do-i-get-drift-overall-drift-of-the-display-when-esp32-s3-is-driving-an-rgb-lcd-screen) when using RGB LCDs. (Only available for v3.x and above versions)
 
   * For ESP32-S3 SoCs:
@@ -39,13 +37,6 @@ In comparison to the original [esp32-arduino-lib-builder](https://github.com/esp
 * [release/v2.0.13](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v2.0.13)
 * [release/v3.0.0-alpha3](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v3.0.0-alpha3)
 * [release/v3.0.0](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v3.0.0)
-
-### Debug Versions
-
-Due to the support of specifying the LOG level when compiling v3.x and above versions in esp32-arduino-lib-builder, the branches here are only used to compile debug versions of v2.x.
-
-* [debug/v2.0.13](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/debug/v2.0.13)
-* [debug/v3.0.0](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/debug/v3.0.0)
 
 ### High Performance Versions
 

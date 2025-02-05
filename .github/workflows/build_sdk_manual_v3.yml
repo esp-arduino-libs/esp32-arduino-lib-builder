@@ -15,6 +15,7 @@ on:
         - 'esp32c3'
         - 'esp32c6'
         - 'esp32h6'
+        - 'esp32p4'
       log_level:
         type: choice
         description: Choose Log Level
@@ -49,7 +50,7 @@ jobs:
           bash ./build.sh -e -t $TARGET_TYPE -D $LOG_LEVEL
 
       - name: Upload archive
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: artifacts
           path: dist

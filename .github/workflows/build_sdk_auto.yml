@@ -25,7 +25,7 @@ jobs:
           bash ./build.sh -e -t all
 
       - name: Upload archive
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: artifacts
           path: dist

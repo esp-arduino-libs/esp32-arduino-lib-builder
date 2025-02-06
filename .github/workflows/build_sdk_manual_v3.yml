@@ -6,8 +6,9 @@ on:
       target:
         type: choice
         description: Choose Target
-        default: 'esp32s3'
+        default: 'all'
         options:
+        - 'all'
         - 'esp32s3'
         - 'esp32p4'
       log_level:

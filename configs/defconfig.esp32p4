@@ -24,3 +24,9 @@ CONFIG_ESP_REV_MIN_FULL=0
 CONFIG_ESP32P4_REV_MAX_FULL=99
 CONFIG_ESP_REV_MAX_FULL=99
 # end of Chip revision
+
+CONFIG_CACHE_L2_CACHE_256KB=y
+CONFIG_CACHE_L2_CACHE_LINE_128B=y
+# The chip does not function properly when the following configuration option is enabled.
+# CONFIG_COMPILER_OPTIMIZATION_PERF=y
+# CONFIG_SPIRAM_XIP_FROM_PSRAM=y

@@ -43,7 +43,7 @@ In comparison to the original [esp32-arduino-lib-builder](https://github.com/esp
       * It increases the size of the L2 cache line size from `128KB` to `256KB` by enabling `CONFIG_CACHE_L2_CACHE_256KB=y`.
 
 > [!WARNING]
-> For the ESP32-P4 in version v3.1.1, enabling `CONFIG_COMPILER_OPTIMIZATION_PERF=y` and `CONFIG_SPIRAM_XIP_FROM_PSRAM=y` will cause the chip to fail to boot properly.
+> For the ESP32-P4 in version v3.1.1 and above, enabling `CONFIG_COMPILER_OPTIMIZATION_PERF=y` and `CONFIG_SPIRAM_XIP_FROM_PSRAM=y` will cause the chip to fail to boot properly.
 
 ## Branches
 
@@ -55,6 +55,7 @@ In comparison to the original [esp32-arduino-lib-builder](https://github.com/esp
 * [release/v3.0.2](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v3.0.2)
 * [release/v3.0.7](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v3.0.7)
 * [release/v3.1.1](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v3.1.1)
+* [release/v3.2.0](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/release/v3.2.0)
 
 ### High Performance Versions
 
@@ -65,6 +66,7 @@ As only v3.x and above versions support the required high-performance configurat
 * [high_perf/v3.0.2](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/high_perf/v3.0.2)
 * [high_perf/v3.0.7](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/high_perf/v3.0.7)
 * [high_perf/v3.1.1](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/high_perf/v3.1.1)
+* [high_perf/v3.2.0](https://github.com/esp-arduino-libs/esp32-arduino-lib-builder/tree/high_perf/v3.2.0)
 
 > [!TIP]
 > [Precompiled SDKs](https://github.com/esp-arduino-libs/arduino-esp32-sdk?tab=readme-ov-file#for-sdks-suffixed-with--h)
